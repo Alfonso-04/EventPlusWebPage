@@ -1,0 +1,79 @@
+<div class="bg-secondary">
+<br><br><br>
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 col-lg-6  col-md-6  col-sm-6 col-6 text-white">
+                <!--Titulo-->
+                
+                <h3>
+                    <span class="text-warning h2">¿Contacto con nosotros?</span>
+                </h3>
+                <!--Parrafo-->
+                <p>¡Algunos de nuestros medios disponibles!</p>
+
+                <br>
+
+                <h5>Llamanos:</h5>
+                <p>+57 (302) 425-9218</p>
+                <h5>Email:</h5>
+                <p>contactclient@eventplus.com</p>
+                <h5>Visitanos:</h5>
+                <p>Calle 72 esquina #85-110</p>
+                <h5>Nuestras redes sociales:</h5>
+                <a href="https://www.facebook.com"> <img src="../../../assets/icons/facebook.svg" width="45"
+                        height="30"></a>
+                <a href="https://www.instagram.com"><img src="../../../assets/icons/instagram.svg" width="45"
+                        height="30"></a>
+                <a href="https://www.web.whatsapp.com"><img src="../../../assets/icons/whatsapp.svg" width="45"
+                        height="30"></a>
+
+                <br> <br>
+                <p>¿Necesitas ayuda personalizada? <button type="button" id="btnAyuda" class="btn btn-warning"
+                        onclick="ayudaPersonalizada()">Aquí</button>
+
+            </div>
+
+            <div class="col-xl-6 col-lg-6  col-md-6  col-sm-6 col-6">
+
+                <div id="formAyuda" >
+                    <div class="card ">
+                        <div class="card-header">
+                            <h4>Ingrese los datos correspondientes</h4>
+                        </div>
+                        <div class="card-body">
+                            <form id="miForm" autocomplete="off">
+                                <div id="datosRecuperados"><label>
+                                        <h6>¡Datos de usuario recuperados!</h6>
+                                    </label></div>
+                                <label>Nombre</label>
+                                <input type="text" class="form-control" id=txtNombre placeholder="Digite su Nombre">
+                                <label>Apellido</label>
+                                <input type="text" class="form-control" id=txtApellido placeholder="Digite su Apellido">
+                                <label>Correo</label>
+                                <input type="text" class="form-control" id=txtCorreo placeholder="Digite su Correo">
+                                <label>Telefono</label>
+                                <input type="text" class="form-control" id=txtTelefono placeholder="Digite su Telefono">
+                                <label>Seleccione su generoㅤㅤ</label>
+                                <input type="radio" name="genero" id="hombre">Masculino
+                                <input type="radio" name="genero" id="mujer" value="true">Femenino<br>
+                                <label>Descripción de su problema</label>
+                                <input type="text" style="height: 90px;" class="form-control align-text-left  "
+                                    id=txtProblema placeholder="Digite brevemente la descripción de su problema">
+                                <!-- <div>
+                            <textarea id="comentarios" rows="5" cols="30">Escribe aquí tus comentarios</textarea>
+                        </div> -->
+                            </form>
+                        </div>
+                        <div class="card-footer"> NOTA: La respuesta puede tomar 2 días hábiles</div>
+                        <button type="button" id="btnEnviarContact" class="btn btn-warning"
+                            onclick="enviarInfo()">Enviar</button>
+                        <button type="button" id="btnEditarContact" class="btn btn-primary"
+                            onclick="actualizarInfoContact()">Editar</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <br><br><br>
+</div>
