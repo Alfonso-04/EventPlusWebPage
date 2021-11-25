@@ -13,12 +13,13 @@
                 <tr>
                     <td>Salón Medallón de Oro</td>
                     <td>Calle 26 #55-38</td>
-                    <td>700.000</td>
+                    <td>1.500.000</td>
+
                 </tr>
                 <tr>
                     <td>Salón Piedas del infinito</td>
                     <td>Calle 30 esquina 2</td>
-                    <td>1.500.000</td>
+                    <td>700.000</td>
                 </tr>
                 <tr>
                     <td>Salón Caliz de la inmensidad</td>
@@ -56,29 +57,60 @@
                     <h4>Ingrese los datos correspondientes</h4>
                 </div>
                 <div class="card-body">
-                    <form id="miForm" autocomplete="off">
-                        <label>Nombre</label>
-                        <input type="text" class="form-control" id=txtNombre placeholder="Digite su Nombre">
-                        <label>Apellido</label>
-                        <input type="text" class="form-control" id=txtApellido placeholder="Digite su Apellido">
-                        <label>Salon de preferencia</label>
-                        <select name="salones" class="form-select" size="1" id="selectSalon">
-                            <option value="0">Seleccione una opción</option>
-                            <option value="Salón Medallón de Oro">Salón Medallón de Oro</option>
-                            <option value="Salón Piedas del infinito">Salón Piedas del infinito</option>
-                            <option value="Salón Caliz de la inmensidad">Salón Caliz de la inmensidad</option>
-                            <option value="Salón agua de mar">Salón agua de mar</option>
-                            <option value="Salón Malecón">Salón Malecón</option>
-                            <option value="Salón Diskotek">Salón Diskotek</option>
-                        </select>
-                        <label>Correo</label>
-                        <input type="text" class="form-control" id=txtCorreo placeholder="Digite su correo">
-                        <label>Telefono</label>
-                        <input type="text" class="form-control" id=txtTelefono
-                            placeholder="Digite su numero de telefono">
+                    <form [formGroup]="miForm">
+
+                        <div class="nombre">
+                            <label>Nombre</label>
+                            <input type="text" class="form-control" formControlName=txtNombre
+                                placeholder="Digite su Nombre">
+                                <small *ngIf="submitted && f.txtNombre?.errors?.required"style="display : submitted;" class="text-danger">Ingresa un nombre valido</small>
+                        </div>
+
+
+                        <div class="apellido">
+                            <label>Apellido</label>
+                            <input type="text" class="form-control" formControlName=txtApellido
+                                placeholder="Digite su Apellido">
+                                <small *ngIf="submitted && f.txtApellido?.errors?.required" style="display : submitted;" class="text-danger">Ingresa un apellido valido</small>
+                        </div>
+
+
+                        <div class="salon">
+                            <label>Salon de preferencia</label>
+                            <select name="salones" class="form-select" size="1" formControlName="selectSalon">
+                                <option value="">Seleccione una opción</option>
+                                <option value="Salón Medallón de Oro">Salón Medallón de Oro</option>
+                                <option value="Salón Piedas del infinito">Salón Piedas del infinito</option>
+                                <option value="Salón Caliz de la inmensidad">Salón Caliz de la inmensidad</option>
+                                <option value="Salón agua de mar">Salón agua de mar</option>
+                                <option value="Salón Malecón">Salón Malecón</option>
+                                <option value="Salón Diskotek">Salón Diskotek</option>
+                            </select>
+                            <small *ngIf="submitted && f.selectSalon?.errors?.required" style="display : submitted;" class="text-danger">Seleciona un salón</small>
+                        </div>
+
+
+                        <div class="correo">
+                            <label>Correo</label>
+                            <input type="text" class="form-control" formControlName=txtCorreo
+                                placeholder="Digite su correo">
+                                <small *ngIf="submitted && f.txtCorreo?.errors?.required" style="display : submitted;" class="text-danger">Ingresa un correo valido</small>
+                        </div>
+
+
+                        <div class="telefono">
+                            <label>Telefono</label>
+                            <input type="text" class="form-control" formControlName=txtTelefono
+                                placeholder="Digite su numero de telefono">
+                                <small *ngIf="submitted && f.txtTelefono?.errors?.required" style="display : submitted;"class="text-danger">Ingresa un numero valido de 10 digitos</small>
+                        </div>
+
+                        
                         <br>
-                        <button type="button" id="btnagregar" class="btn btn-primary">Agregar</button>
-                        <button type="button" id="btneditar" class="btn btn-warning">Editar</button>
+                        <button type="button" id="btnagregar" class="btn btn-primary"
+                            (click)="enviarInfo(miForm.value)" style="margin-right: 20px;">Enviar</button>
+                        <button type="button" id="btneditar" class="btn btn-warning"
+                            (click)="actualizarInfoContact(miForm.value)">Editar</button>
                     </form>
                 </div>
             </div>
@@ -96,4 +128,41 @@
     </div>
     <br><br>
 
+    <div class="container" *ngIf="mostrarTabla">
+        <br><br>
+        <div id="datosRecuperados" style="display: none;"><label>
+                <h5>¡Datos de usuario recuperados!</h5>
+            </label></div>
+        <table class="table table-hover" id="tablaDatos">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th class="text-center">Salón</th>
+                    <th class="text-center">Correo</th>
+                    <th>Telefono</th>
+                    <th class="text-center">Opcion</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+
+                    <td> 1</td>
+                    <td *ngFor="let datos of array ">{{datos}}</td>
+
+
+                    <td class="text-center">
+                        <button type="button" class="btn btn-outline-warning" style="margin-right: 20px;"
+                            (click)="editarInfo()">Edit</button>|
+                        <button type="button" class="btn btn-outline-danger" style="margin-left: 20px;"
+                            (click)="borrarInfo()">Delete</button>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+
+
+    </div>
 </div>

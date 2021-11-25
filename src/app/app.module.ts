@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule, routingComponents} from './app-routing.module';
 import { AppComponent } from './app.component';
 import { EncabezadoComponent } from './componentes/encabezado/encabezado.component';
 import { MenuComponent } from './componentes/menu/menu.component';
@@ -18,6 +18,12 @@ import { CuerpoAlquilerComponent } from './componentes/cuerpo-alquiler/cuerpo-al
 import { AlquilerComponent } from './paginas/alquiler/alquiler.component';
 import { CuerpoSugerenciasComponent } from './componentes/cuerpo-sugerencias/cuerpo-sugerencias.component';
 import { SugerenciasComponent } from './paginas/sugerencias/sugerencias.component';
+import { Form1Component } from './formularios/form1/form1.component';
+import { Form2Component } from './formularios/form2/form2.component';
+import { Form3Component } from './formularios/form3/form3.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TablaContactoComponent } from './tablas/tabla-contacto/tabla-contacto.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -34,11 +40,21 @@ import { SugerenciasComponent } from './paginas/sugerencias/sugerencias.componen
     CuerpoAlquilerComponent,
     AlquilerComponent,
     CuerpoSugerenciasComponent,
-    SugerenciasComponent
+    SugerenciasComponent,
+    Form1Component,
+    Form2Component,
+    Form3Component,
+    TablaContactoComponent,
+    routingComponents
+    
+    
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

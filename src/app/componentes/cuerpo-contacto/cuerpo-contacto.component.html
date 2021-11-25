@@ -1,10 +1,10 @@
 <div class="bg-secondary">
-<br><br><br>
+    <br><br><br>
     <div class="container">
         <div class="row">
             <div class="col-xl-6 col-lg-6  col-md-6  col-sm-6 col-6 text-white">
                 <!--Titulo-->
-                
+
                 <h3>
                     <span class="text-warning h2">¿Contacto con nosotros?</span>
                 </h3>
@@ -28,52 +28,140 @@
                         height="30"></a>
 
                 <br> <br>
-                <p>¿Necesitas ayuda personalizada? <button type="button" id="btnAyuda" class="btn btn-warning"
-                        onclick="ayudaPersonalizada()">Aquí</button>
+                <p>¿Necesitas ayuda personalizada? <button type="button" class="btn btn-outline-warning"
+                        (click)="ayudaPersonalizada()">Aquí</button>
 
             </div>
 
-            <div class="col-xl-6 col-lg-6  col-md-6  col-sm-6 col-6">
 
-                <div id="formAyuda" >
+            <div class="col-xl-6 col-lg-6  col-md-6  col-sm-6 col-6" *ngIf="mostrarForm">
+                <div id="formAyuda">
                     <div class="card ">
                         <div class="card-header">
                             <h4>Ingrese los datos correspondientes</h4>
                         </div>
                         <div class="card-body">
-                            <form id="miForm" autocomplete="off">
-                                <div id="datosRecuperados"><label>
+                            <form [formGroup]="miForm" >
+
+
+                                <div id="datosRecuperados" style="display: none;">
+                                    <label>
                                         <h6>¡Datos de usuario recuperados!</h6>
-                                    </label></div>
-                                <label>Nombre</label>
-                                <input type="text" class="form-control" id=txtNombre placeholder="Digite su Nombre">
-                                <label>Apellido</label>
-                                <input type="text" class="form-control" id=txtApellido placeholder="Digite su Apellido">
-                                <label>Correo</label>
-                                <input type="text" class="form-control" id=txtCorreo placeholder="Digite su Correo">
-                                <label>Telefono</label>
-                                <input type="text" class="form-control" id=txtTelefono placeholder="Digite su Telefono">
-                                <label>Seleccione su generoㅤㅤ</label>
-                                <input type="radio" name="genero" id="hombre">Masculino
-                                <input type="radio" name="genero" id="mujer" value="true">Femenino<br>
-                                <label>Descripción de su problema</label>
-                                <input type="text" style="height: 90px;" class="form-control align-text-left  "
-                                    id=txtProblema placeholder="Digite brevemente la descripción de su problema">
+                                    </label>
+                                </div>
+
+                                <div class="nombre">
+                                    <label>Nombre</label>
+                                    <input type="text" class="form-control" formControlName=txtNombre
+                                        placeholder="Digite su Nombre" >
+                                    <small *ngIf="submitted && f.txtNombre?.errors?.required"style="display : submitted;" class="text-danger">Ingresa un nombre valido</small>
+                                </div>
+                                
+
+                                <div class="apellido">
+                                    <label>Apellido</label>
+                                    <input type="text" class="form-control" formControlName=txtApellido
+                                        placeholder="Digite su Apellido">
+                                    <small *ngIf="submitted && f.txtApellido?.errors?.required" style="display : submitted;" class="text-danger">Ingresa un apellido valido</small>
+                                </div>
+                                
+
+                                <div class="correo">
+                                    <label>Correo</label>
+                                    <input type="text" class="form-control" formControlName=txtCorreo
+                                        placeholder="Digite su Correo">
+                                    <small *ngIf="submitted && f.txtCorreo?.errors?.required" style="display : submitted;" class="text-danger">Ingresa un correo valido</small>
+                                </div>
+
+
+                                <div class="telefono">
+                                    <label>Telefono</label>
+                                    <input type="text" class="form-control" formControlName=txtTelefono
+                                        placeholder="Digite su Telefono">
+                                    <small *ngIf="submitted && f.txtTelefono?.errors?.required" style="display : submitted;"class="text-danger">Ingresa un numero valido de 10 digitos</small>
+                                </div>
+
+
+                                <div class="genero">
+                                    <label>Generoㅤㅤ</label>
+                                    <input type="radio" formControlName="hombre">Masculino
+                                    <input type="radio" formControlName="mujer">Femenino
+                                </div>
+
+
+                                <div class="problema">
+                                    <label>Descripción de su problema</label>
+                                    <textarea rows="5" type="text" class="form-control" formControlName=txtProblema
+                                        placeholder="Digite brevemente la descripción de su problema"></textarea>
+                                    <small *ngIf="submitted && f.txtProblema?.errors?.required" style="display : submitted;"class="text-danger">Descripción minima de 10 caracteres</small>
+                                </div>
                                 <!-- <div>
-                            <textarea id="comentarios" rows="5" cols="30">Escribe aquí tus comentarios</textarea>
-                        </div> -->
+                                    <textarea formControlName="comentarios" rows="5" cols="30">Escribe aquí tus comentarios</textarea>
+                                    </div> -->
+
                             </form>
                         </div>
                         <div class="card-footer"> NOTA: La respuesta puede tomar 2 días hábiles</div>
-                        <button type="button" id="btnEnviarContact" class="btn btn-warning"
-                            onclick="enviarInfo()">Enviar</button>
-                        <button type="button" id="btnEditarContact" class="btn btn-primary"
-                            onclick="actualizarInfoContact()">Editar</button>
+                        <div class="row">
+                            <div class="col-6 text-center">
+                                <button class="btn btn-warning" (click)="enviarInfo(miForm.value)">Enviar</button>
+                            </div>
+                            <div class="col-6 text-center">
+                                <button 
+                                class="btn btn-primary"
+                                    (click)="actualizarInfoContact(miForm.value)">Actualizar</button>
+                            </div>
+                        </div>
                     </div>
-                </div>
 
+
+
+                </div>
             </div>
+
         </div>
     </div>
-    <br><br><br>
+
+    <img src="../../../assets/img/wave.svg">
+
+
+</div>
+
+<div class="container" *ngIf="mostrarTabla">
+    <div>
+        <br><br>
+        <div id="datosRecuperados" style="display: none;">
+            <label>
+                <h5>¡Datos de usuario recuperados!</h5>
+            </label>
+        </div>
+        <table class="table table-hover" id="tablaDatos">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th class="text-center">Correo</th>
+                    <th>Telefono</th>
+                    <th class="text-center">Problema</th>
+                    <th class="text-center">Opcion</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td> 1</td>
+                    <td *ngFor="let datos of array ">{{datos}}</td>
+
+                    <td class="text-center">
+                        <button type="button" class="btn btn-outline-warning" style="margin-right: 20px;"
+                            (click)="editarInfo()">Edit</button>|
+                        <button type="button" class="btn btn-outline-danger" style="margin-left: 20px;"
+                            (click)="borrarInfo()">Delete</button>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
 </div>

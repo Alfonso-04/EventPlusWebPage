@@ -13,25 +13,43 @@
                     <h4>¡Escuchar, para mejorar!</h4>
                 </div>
                 <div class="card-body">
-                    <form id="miForm" autocomplete="off">
-                        <label>Nombres y Apellidos</label>
-                        <input type="text" class="form-control" id=txtNombre placeholder="Digite su Nombre">
-                        <label>¿Ha tenido problemas con alguno de nuestros servicios?</label>
-                        <select name="salones" class="form-select" size="1" id="selectSalon">
-                            <option value="0">Selecione una opción</option>
-                            <option value="Meseros">Meseros</option>
-                            <option value="Staff de eventos">Staff de eventos</option>
-                            <option value="Comidas y bebidas">Comidas y bebidas</option>
-                            <option value="Atención al cliente">Atención al cliente</option>
-                            <option value="Salones">Salones</option>
-                        </select>
-                        <label>Fecha de su problema</label><br>
-                        <input type="date">
-                        <input type="text" style="height: 90px;" class="form-control align-text-left  " id=txtProblema
-                            placeholder="Digite brevemente la descripción de los hechos">
+                    <form [formGroup] = "miForm">
+
+                        <div class="nombreApellido">
+                            <label>Nombres y Apellidos</label>
+                            <input type="text" class="form-control" formControlName=txtNombreApellido placeholder="Digite su Nombre">
+                            <small *ngIf="submitted && f.txtNombreApellido?.errors?.required" style="display : submitted;"class="text-danger">Ingresa un nombre y apellido valido</small>
+                        </div>
+
+                        <div class="problemSugerencia">
+                            <label>¿Ha tenido problemas con alguno de nuestros servicios?</label>
+                            <select class="form-select" size="1" formControlName="selectProblema">
+                                <option value="0">Selecione una opción</option>
+                                <option value="Meseros">Meseros</option>
+                                <option value="Staff de eventos">Staff de eventos</option>
+                                <option value="Comidas y bebidas">Comidas y bebidas</option>
+                                <option value="Atención al cliente">Atención al cliente</option>
+                                <option value="Salones">Salones</option>
+                            </select>
+                            <small *ngIf="submitted && f.selectProblema?.errors?.required" style="display : submitted;"class="text-danger">Escoja uno</small>
+                        </div>
+
+                        <div class="fecha">
+                            <label>Fecha de su problema</label><br>
+                            <input type="date" formControlName="fecha">
+                            <small *ngIf="submitted && f.fecha?.errors?.required" style="display : submitted;"class="text-danger">Seleccione la fecha</small>
+                        </div>
                         <br>
-                        <button type="button" id="btnagregar" class="btn btn-primary">Agregar</button>
-                        <button type="button" id="btneditar" class="btn btn-warning">Editar</button>
+                        <div class="problema">
+                            <textarea type="text" rows="5"  class="form-control" formControlName=txtProblema
+                                placeholder="Digite brevemente la descripción de los hechos"></textarea>
+                        </div>
+                        <br>
+                        <button type="button" id="btnagregar" class="btn btn-primary" style="margin-right: 20px;"
+                        (click)="enviarInfo(miForm.value)">Agregar</button>
+
+                        <button type="button" id="btneditar" class="btn btn-warning"
+                        (click)="actualizarInfoContact(miForm.value)">Editar</button>
                     </form>
                 </div>
             </div>
@@ -40,4 +58,38 @@
     </div>
     <img src="../../../assets/img/wave.svg">
 
+    <div class="container" *ngIf="mostrarTabla">
+        <div>
+            <br><br>
+            
+            <table class="table table-hover" id="tablaDatos">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre y apellido</th>
+                        <th>Problema</th>
+                        <th>Fecha</th>
+                        <th>Descripción</th>
+                        <th class="text-center">Opción</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td> 1</td>
+                        <td *ngFor="let datos of array ">{{datos}}</td>
+    
+                        <td class="text-center">
+                            <button type="button" class="btn btn-outline-warning" style="margin-right: 20px;"
+                                (click)="editarInfo()">Edit</button>|
+                            <button type="button" class="btn btn-outline-danger" style="margin-left: 20px;"
+                                (click)="borrarInfo()">Delete</button>
+                        </td>
+    
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    
+    </div>
 </div>
